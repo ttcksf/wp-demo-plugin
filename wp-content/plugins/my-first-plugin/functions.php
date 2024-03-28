@@ -1,3 +1,4 @@
+<?php
 function my_first_function($content){
     // 本文を引数で受け取って末尾に下線を追加する
     // includes/post-template.phpの256行目
