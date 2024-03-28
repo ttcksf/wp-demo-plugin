@@ -9,4 +9,4 @@ function my_first_function($content){
   // the_content()関数のthe_contentというイベントで実行
   add_filter("the_content", "my_first_function");
 
-  
+?>
