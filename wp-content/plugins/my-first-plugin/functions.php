@@ -6,6 +6,6 @@
     echo "</style>";
   }
   // headタグを出力するwp_head関数で実行する
-  add_filter("wp_head", "my_first_function");
+  add_action("wp_head", "my_first_function");
 
 ?>
