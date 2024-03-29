@@ -3,7 +3,7 @@
 Plugin Name: My First Plugin
 */
 
-function create_member_page() {  
+function create_plugin_page() {  
   // スラグ'plugin'のページが存在するか確認
   $existing_page = get_page_by_path('slug');
   
@@ -26,5 +26,5 @@ function create_member_page() {
 }
 
 // プラグイン有効化時
-register_activation_hook(__FILE__, 'create_member_page');
+register_activation_hook(__FILE__, 'create_plugin_page');
 ?>
