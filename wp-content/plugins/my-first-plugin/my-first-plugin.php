@@ -3,28 +3,32 @@
 Plugin Name: My First Plugin
 */
 
-function create_member_page() {  
-  // スラグ'plugin'のページが存在するか確認
+function create_plugin_page() {  
   $existing_page = get_page_by_path('slug');
   
   if (!$existing_page) {      
-      // 新しいページを作成
       $page_data = array(
-          // 固定ページ
           'post_type' => 'page',
-          // タイトル
           'post_title' => 'プラグイン',
-          // スラッグ
           'post_name' => 'plugin',
-          // 公開
           'post_status' => 'publish'
       );
-      
-      // ページをデータベースに挿入
       wp_insert_post($page_data);
   }
 }
+register_activation_hook(__FILE__, 'create_plugin_page');
 
-// プラグイン有効化時
-register_activation_hook(__FILE__, 'create_member_page');
+// プラグインが無効化されたときに実行される関数
+function delete_plugin_page() {
+  // スラッグ
+  $page_slug = 'plugin';
+  // スラッグを使ってページを取得します
+  $page = get_page_by_path($page_slug);
+  // ページが存在するかどうかを確認
+  if ($page) {
+      wp_delete_post($page->ID, true);
+  }
+}
+// プラグインが無効化されたときに実行
+register_deactivation_hook(__FILE__, 'delete_plugin_page');
 ?>
