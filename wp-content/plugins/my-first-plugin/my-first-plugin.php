@@ -47,6 +47,7 @@ Plugin Name: My First Plugin
         </div>
       </div>
     </div>
+    <!-- ボタンを表示する関数 -->
     <?php submit_button(); ?>
   </form>
 </div>
