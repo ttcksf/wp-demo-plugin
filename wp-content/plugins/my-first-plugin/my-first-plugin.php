@@ -40,7 +40,7 @@ Plugin Name: My First Plugin
   function create_sub_new_menu(){
     ?>
     <div class="wrap">
-      <h2>サブメニュー</h2>
+      <h2>サブメニュー画面</h2>
     </div>
     <?php
   }
