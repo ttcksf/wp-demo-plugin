@@ -25,7 +25,7 @@ Plugin Name: My First Plugin
   function render_new_menu(){
     ?>
     <div class="wrap">
-      <h2>新メニュー</h2>
+      <h2>新メニュー設定画面</h2>
     </div>
     <?php
   }
