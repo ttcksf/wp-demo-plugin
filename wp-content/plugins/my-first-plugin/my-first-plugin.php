@@ -18,7 +18,7 @@ Plugin Name: My First Plugin
   function render_new_menu(){
     ?>
 <div class="wrap">
-  <h2>共通設定画面</h2>
+  <h2>新メニュー設定画面</h2>
   <form method="post" action="options.php" enctype="multipart/form-data" encoding="multipart/form-data">
     <?php
     // 設定グループ名。register_setting()で使用されるグループ名と一致する必要がある
