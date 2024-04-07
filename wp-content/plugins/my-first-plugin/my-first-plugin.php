@@ -5,27 +5,42 @@ Plugin Name: My First Plugin
 
   function my_admin_menu(){
     add_menu_page(
-      // $page_title　：　ページタイトル（title）,
       '新メニュー設定画面',
-      // $menu_title　：　メニュータイトル,
       '新メニュー',
-      // $capability　：　メニュー表示するユーザーの権限,
       'manage_options',
-      // $menu_slug,　：　メニューのスラッグ,
       'new_menu',
-      // $function,　：　メニュー表示時に使われる関数,
       'render_new_menu',
-      // $icon_url,　：　メニューのテキスト左のアイコン,
       'dashicons-admin-generic',
-      // $position 　：　メニューを表示する位置;
-      // https://developer.wordpress.org/reference/functions/add_menu_page/
       99
+    );
+
+    add_submenu_page(
+      // 親メニューのスラッグ
+      'new_menu',
+      // サブメニューのタイトル
+      'サブメニュー画面',
+      // サブメニューの表示名
+      'サブメニュー',
+      // 権限
+      'manage_options',
+      // サブメニューのスラッグ
+      'sub_new_menu',
+      // サブメニューの表示関数
+      'create_sub_new_menu',
+      0
     );
   }
   function render_new_menu(){
     ?>
     <div class="wrap">
       <h2>新メニュー</h2>
+    </div>
+    <?php
+  }
+  function create_sub_new_menu(){
+    ?>
+    <div class="wrap">
+      <h2>サブメニュー</h2>
     </div>
     <?php
   }
