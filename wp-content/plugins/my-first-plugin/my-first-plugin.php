@@ -13,48 +13,50 @@ Plugin Name: My First Plugin
       'dashicons-admin-generic',
       99
     );
-
-    add_submenu_page(
-      'new_menu',
-      'サブメニュー画面',
-      'サブメニュー',
-      'manage_options',
-      'sub_new_menu',
-      'create_sub_new_menu',
-      0
-    );
-    // 既存のメニューにサブメニューを追加
-    add_submenu_page(
-      // 親メニューのファイル名
-      // https://developer.wordpress.org/reference/functions/add_submenu_page/
-      'post-new.php',
-      // メニューのタイトル
-      '自作メニューの設定画面',
-      // メニューの表示名
-      'サブメニュー',
-      // 権限
-      'manage_options',
-      // スラッグ
-      'post_new_sub_menu',
-      // 表示関数
-      'create_sub_new_menu',
-      // 表示位置
-      4
-    );
+    add_action('admin_init', 'register_custom_form');
   }
   function render_new_menu(){
     ?>
-    <div class="wrap">
-      <h2>新メニュー</h2>
+<div class="wrap">
+  <h2>共通設定画面</h2>
+  <form method="post" action="options.php" enctype="multipart/form-data" encoding="multipart/form-data">
+    <?php
+    // 設定グループ名。register_setting()で使用されるグループ名と一致する必要がある
+    settings_fields('admin-menu-form');
+    do_settings_sections('admin-menu-form'); ?>
+    <!-- WordPressのスタイルを使うにはclass名を揃える必要がある -->
+    <div class="metabox-holder">
+      <div class="postbox">
+        <h3 class='hndle'><span>テキスト</span></h3>
+        <div class="inside">
+          <div class="main">
+            <p class="setting_description">テキストを入力してください。</p>
+            <h4>テキスト</h4>
+            <p><input type="text" id="text" name="text" value="<?php echo get_option('text'); ?>"></p>
+          </div>
+        </div>
+      </div>
+      <div class="postbox">
+        <h3 class='hndle'><span>テキストボックス</span></h3>
+        <div class="inside">
+          <div class="main">
+            <p class="setting_description">テキストボックスを入力してください。</p>
+            <h4>テキストボックス</h4>
+            <textarea id="textbox" class="regular-text" name="textbox" rows="10" cols="60"><?php echo get_option('textbox'); ?></textarea>
+          </div>
+        </div>
+      </div>
     </div>
+    <?php submit_button(); ?>
+  </form>
+</div>
     <?php
   }
-  function create_sub_new_menu(){
-    ?>
-    <div class="wrap">
-      <h2>自作メニューの設定画面</h2>
-    </div>
-    <?php
+  function register_custom_form()
+  {
+    register_setting('admin-menu-form', 'text');
+    register_setting('admin-menu-form', 'textbox');
   }
+
   add_action("admin_menu", "my_admin_menu");
 ?>
