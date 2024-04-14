@@ -19,12 +19,10 @@ Plugin Name: My First Plugin
     ?>
 <div class="wrap">
   <h2>新メニュー設定画面</h2>
-  <form method="post" action="options.php" enctype="multipart/form-data" encoding="multipart/form-data">
+  <form method="post" action="" enctype="multipart/form-data" encoding="multipart/form-data">
     <?php
-    // 設定グループ名。register_setting()で使用されるグループ名と一致する必要がある
     settings_fields('admin-menu-form');
     do_settings_sections('admin-menu-form'); ?>
-    <!-- WordPressのスタイルを使うにはclass名を揃える必要がある -->
     <div class="metabox-holder">
       <div class="postbox">
         <h3 class='hndle'><span>テキスト</span></h3>
@@ -32,22 +30,11 @@ Plugin Name: My First Plugin
           <div class="main">
             <p class="setting_description">テキストを入力してください。</p>
             <h4>テキスト</h4>
-            <p><input type="text" id="text" name="text" value="<?php echo get_option('text'); ?>"></p>
-          </div>
-        </div>
-      </div>
-      <div class="postbox">
-        <h3 class='hndle'><span>テキストボックス</span></h3>
-        <div class="inside">
-          <div class="main">
-            <p class="setting_description">テキストボックスを入力してください。</p>
-            <h4>テキストボックス</h4>
-            <textarea id="textbox" class="regular-text" name="textbox" rows="10" cols="60"><?php echo get_option('textbox'); ?></textarea>
+            <p><input type="text" id="text" name="text" value="<?php echo esc_attr(get_option('text')); ?>"></p>
           </div>
         </div>
       </div>
     </div>
-    <!-- ボタンを表示する関数 -->
     <?php submit_button(); ?>
   </form>
 </div>
@@ -60,4 +47,21 @@ Plugin Name: My First Plugin
   }
 
   add_action("admin_menu", "my_admin_menu");
+
+  function admin_form_submit(){
+    if($_SERVER["REQUEST_METHOD"] === "POST"){
+      if(isset($_POST["text"]) && $_POST["text"]){
+        // 入力値を保存
+        update_option("text", $_POST["text"]);
+      }else{
+        // 無ければ空文字
+        update_option("text","");
+      }
+      // 終わったらリダイレクト(メニューのスラッグを第一引数に指定)
+      wp_safe_redirect(menu_page_url("new_menu",false));
+      exit;
+    }
+  }
+
+  add_action("admin_init", "admin_form_submit");
 ?>
