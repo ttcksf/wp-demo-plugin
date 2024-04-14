@@ -1,28 +1,30 @@
 <?php get_header();?>
     <main>
         <section class="section postbox">
-            <!-- エラー処理 -->
+            <!-- optionsAPIはデータを一時的に保存する関数 -->
             <?php
-                function error_check(){
-                    // 第一引数：エラーコード
-                    // $err = new WP_Error("500");
-                    // var_dump($err->get_error_code());
-                    // 第二引数：エラーメッセージ
-                    // $err = new WP_Error("500", "エラー");
-                    // var_dump($err->get_error_message());
-                    // 第三引数：エラーデータ(別のデータを渡して処理を切り替えるなど)
-                    // $err = new WP_Error("500", "エラー",["aaa",100]);
-                    // var_dump($err->get_error_data());
+                update_option("text","aaa");
+                $text = get_option("text");
+                // var_dump($text);
+                // データの変更は上書きするだけ
+                update_option("text","bbb");
+                $text = get_option("text");
+                // var_dump($text);
+                // データの削除(falseになる)
+                delete_option("text");
+                $text = get_option("text");
+                // var_dump($text);
+                
 
-                    // 空のエラーを作成した後から引数を追加することも可能
-                    // エラーメッセージをパターンで切り替えるなど
-                    $err = new WP_Error();
-                    if(true){
-                        $err->add("500","必須項目です");
-                    }
-                    var_dump($err);
-                }
-                error_check();
+           ?>
+           <!-- transientsAPIはoptionsAPIと同じく一時保存できて有効期限を設定する関数 -->
+           <?php
+                set_transient("text", "aaa", 3);
+                // sleep(2);
+                // データが3秒を超えると空になる（falseになる）
+                sleep(5);
+                $text = get_transient("text");
+                var_dump($text);
            ?>
             <div class="postbox_inner inner">
                 <div class="cards">
