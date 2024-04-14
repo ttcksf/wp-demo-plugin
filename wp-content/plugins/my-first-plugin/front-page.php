@@ -3,20 +3,23 @@
         <section class="section postbox">
             <!-- エラー処理 -->
             <?php
-                // 事前にエラーになるケースを想定しておくことで真っ白になるケースを防ぎやすくなる
-                // 真っ白になる、無限ループはエラーよりもダメ
-                function error_check(){
-                    $num = 100;
-                    if($num == 100){
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }
-                if(error_check()){
-                    echo "エラーです";
-                }
-            ?>
+               function error_check(){
+                   $num = 100;
+                   if($num == 100){
+                       return new WP_Error("error_code", "エラーです");
+                   }else{
+                       return false;
+                   }
+               }
+               $err = error_check();
+               if(error_check($err)){
+                   // echo "エラーです";
+                   // エラーオブジェクトにできる
+                   var_dump($err);
+                   // echo $err->get_error_code();
+                   echo $err->get_error_message();
+               }
+           ?>
             <div class="postbox_inner inner">
                 <div class="cards">
                     <?php if(have_posts()):
