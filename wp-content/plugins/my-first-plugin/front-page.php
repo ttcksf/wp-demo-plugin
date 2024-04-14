@@ -4,20 +4,24 @@
             <!-- エラー処理 -->
             <?php
                 function error_check(){
-                    $email = "";
-                    // $email = "test@test.com";
-                    // $text = "";
-                    $text = "test";
+                    // 第一引数：エラーコード
+                    // $err = new WP_Error("500");
+                    // var_dump($err->get_error_code());
+                    // 第二引数：エラーメッセージ
+                    // $err = new WP_Error("500", "エラー");
+                    // var_dump($err->get_error_message());
+                    // 第三引数：エラーデータ(別のデータを渡して処理を切り替えるなど)
+                    // $err = new WP_Error("500", "エラー",["aaa",100]);
+                    // var_dump($err->get_error_data());
+
+                    // 空のエラーを作成した後から引数を追加することも可能
+                    // エラーメッセージをパターンで切り替えるなど
                     $err = new WP_Error();
-                    if($email == ""){
-                        $err->add("100","メールアドレスを入力してください");
-                    }
-                    if($text == ""){
-                        $err->add("100","こちらは必須項目です");
+                    if(true){
+                        $err->add("500","必須項目です");
                     }
                     var_dump($err);
                 }
-                // エラーメッセージを複数作れる
                 error_check();
            ?>
             <div class="postbox_inner inner">
