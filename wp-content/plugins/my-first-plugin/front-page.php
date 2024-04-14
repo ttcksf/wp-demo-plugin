@@ -3,22 +3,22 @@
         <section class="section postbox">
             <!-- エラー処理 -->
             <?php
-               function error_check(){
-                   $num = 100;
-                   if($num == 100){
-                       return new WP_Error("error_code", "エラーです");
-                   }else{
-                       return false;
-                   }
-               }
-               $err = error_check();
-               if(error_check($err)){
-                   // echo "エラーです";
-                   // エラーオブジェクトにできる
-                   var_dump($err);
-                   // echo $err->get_error_code();
-                   echo $err->get_error_message();
-               }
+                function error_check(){
+                    $email = "";
+                    // $email = "test@test.com";
+                    // $text = "";
+                    $text = "test";
+                    $err = new WP_Error();
+                    if($email == ""){
+                        $err->add("100","メールアドレスを入力してください");
+                    }
+                    if($text == ""){
+                        $err->add("100","こちらは必須項目です");
+                    }
+                    var_dump($err);
+                }
+                // エラーメッセージを複数作れる
+                error_check();
            ?>
             <div class="postbox_inner inner">
                 <div class="cards">
