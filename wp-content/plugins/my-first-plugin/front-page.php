@@ -1,31 +1,20 @@
 <?php get_header();?>
     <main>
         <section class="section postbox">
-            <!-- optionsAPIはデータを一時的に保存する関数 -->
+            <!-- 投稿のアイキャッチ画像、ユーザーのメールアドレスなど、そのデータ特有の項目をメタデータという -->
             <?php
-                update_option("text","aaa");
-                $text = get_option("text");
-                // var_dump($text);
-                // データの変更は上書きするだけ
-                update_option("text","bbb");
-                $text = get_option("text");
-                // var_dump($text);
-                // データの削除(falseになる)
-                delete_option("text");
-                $text = get_option("text");
-                // var_dump($text);
-                
-
+                // 第一引数に投稿ID、第二引数にキー、第三引数に値、第四引数に単一データか？カスタム投稿でよく使われる
+                update_post_meta(100, "sub_title", "hello", true);
+                // 第四引数はデフォルトでfalseつまり配列になっている
+                // update_post_meta(100, "sub_title", "hello");
+                $meta_data = get_post_meta(100, "sub_title");
+                var_dump($meta_data);
+                // 削除するとからの配列になる
+                delete_post_meta(100, "sub_title");
+                $meta_data = get_post_meta(100, "sub_title");
+                var_dump($meta_data);
            ?>
-           <!-- transientsAPIはoptionsAPIと同じく一時保存できて有効期限を設定する関数 -->
-           <?php
-                set_transient("text", "aaa", 3);
-                // sleep(2);
-                // データが3秒を超えると空になる（falseになる）
-                sleep(5);
-                $text = get_transient("text");
-                var_dump($text);
-           ?>
+          
             <div class="postbox_inner inner">
                 <div class="cards">
                     <?php if(have_posts()):
