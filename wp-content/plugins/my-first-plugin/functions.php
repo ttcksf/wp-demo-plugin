@@ -1,15 +1,12 @@
 <?php
 
-  // アップロードできるファイルの種類を制限
-  function my_mime_type($mime_types){
-    $mime_types = [
-      // キーは拡張子を正規表現で値はMIMEタイプ
-      // https://developer.wordpress.org/reference/hooks/mime_types/
-      "png" => "image/png",
-      "jpg|jpeg|jpe" => "image/jpeg",
-      "pdf" => "application/pdf",
-    ];
-    return $mime_types;
+  // 管理画面から特定のメニューを削除する
+  // https://developer.wordpress.org/reference/functions/remove_menu_page/
+  function remove_admin_menu(){
+    // ツールを削除
+    // remove_menu_page("tools.php");
+    // ツールの中のサブメニューのインポートだけ削除
+    remove_submenu_page("tools.php","import.php");
   }
-  add_filter("upload_mimes", "my_mime_type",1,1);
+  add_action("admin_menu","remove_admin_menu");
 ?>
